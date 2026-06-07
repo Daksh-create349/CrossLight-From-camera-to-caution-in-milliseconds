@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #050B14;
+  --color-panel: #0C1428;
+  --color-accent: #00E5FF;
+  --color-danger: #FF1744;
+  
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-mono: 'Courier New', Courier, monospace;
+  
+  --shadow-cyan-glow: 0 0 15px rgba(0, 229, 255, 0.4);
+  --shadow-red-glow: 0 0 15px rgba(255, 23, 68, 0.5);
+  --shadow-yellow-glow: 0 0 15px rgba(234, 179, 8, 0.5);
+  --shadow-green-glow: 0 0 15px rgba(34, 197, 94, 0.5);
+}
+
+@layer base {
+  body {
+    @apply bg-background text-gray-100 font-sans antialiased overflow-x-hidden;
+  }
+}
+
+/* Glassmorphism styling */
+.glass {
+  background: rgba(12, 20, 40, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+}
+
+.glass-danger {
+  background: rgba(40, 10, 20, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 23, 68, 0.3);
+}
+
+/* Glowing text styling */
+.glow-text {
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.6), 0 0 40px rgba(0, 229, 255, 0.2);
+}
+
+/* Pulsing projector active border */
+@keyframes border-pulse {
+  0% {
+    border-color: rgba(255, 23, 68, 0.4);
+    box-shadow: 0 0 10px rgba(255, 23, 68, 0.3);
+  }
+  50% {
+    border-color: rgba(255, 23, 68, 1);
+    box-shadow: 0 0 25px rgba(255, 23, 68, 0.7);
+  }
+  100% {
+    border-color: rgba(255, 23, 68, 0.4);
+    box-shadow: 0 0 10px rgba(255, 23, 68, 0.3);
+  }
+}
+
+.pulsing-danger-border {
+  animation: border-pulse 2s infinite ease-in-out;
+}
+
+/* Scanline visual overlay effect */
+.scanline {
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 50%,
+    rgba(0, 229, 255, 0.04) 50%,
+    rgba(0, 229, 255, 0.04)
+  );
+  background-size: 100% 4px;
+}

@@ -1,0 +1,53 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+.env.*
+# Jupyter notebooks (if any)
+.ipynb_checkpoints/
+# Test cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build / distribution
+build/
+*.egg-info/
+.dist/
+
+# Local settings
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Node.js / frontend artifacts
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Vite / React build output
+dist/
+.vite/
+
+# Static analysis caches
+.mypy_cache/
+.pylint.d/
+
+# Environment files
+.env.local
+.env.development
+.env.production
+
+# Logs
+*.log
+logs/
