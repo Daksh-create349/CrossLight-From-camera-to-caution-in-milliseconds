@@ -1,7 +1,23 @@
 """
-kalman_tracker_v2.py
-====================
-Kalman-filter multi-object tracker using constant velocity model in real-world metre-space.
+kalman_tracker_v2.py  —  Experimental constant-velocity tracker
+================================================================
+This is an *alternative* implementation of the Kalman tracker.
+It intentionally coexists with ``kalman_tracker.py`` because the two
+modules make different motion-model trade-offs:
+
+  kalman_tracker.py   (primary, used by main.py)
+    • Constant-acceleration model: state = [x, y, vx, vy, ax, ay]
+    • Better for vehicles that brake / accelerate rapidly
+    • Provides ``predicted_bbox_pixels(H_inv)`` for skip-frame visualisation
+
+  kalman_tracker_v2.py  (this file — experimental)
+    • Constant-velocity model: state = [x, y, vx, vy]
+    • Simpler / fewer parameters to tune; useful as a baseline comparison
+    • Operates purely in metre-space from the start (no pixel-centroid path)
+
+To switch the system to this tracker, replace the import in main.py:
+    from kalman_tracker_v2 import KalmanTrackerV2 as KalmanTracker
+and update the constructor call (it requires ``homography_matrix`` at init).
 """
 
 import numpy as np

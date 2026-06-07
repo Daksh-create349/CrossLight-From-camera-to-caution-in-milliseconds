@@ -1,7 +1,16 @@
 """
-main_v2.py – CrossLight Monitor (v2 Performance Optimized)
-==========================================================
-Performance-optimized version of the main loop.
+main_v2.py – CrossLight Monitor (standalone / no web-server variant)
+=====================================================================
+⚠  LEGACY ENTRY POINT — kept for reference only.
+   Use `main.py` for the current version, which adds the async aiohttp
+   web server, MJPEG /video_feed endpoint, and WebSocket /ws endpoint
+   that the React frontend connects to.
+
+   This file is NOT deleted because main_v2.py is a useful stripped-down
+   variant for quick local testing without the web-server dependency.
+   It is intentionally NOT the primary entry point.
+
+Original description: Performance-optimized version of the main loop.
 
 Optimizations:
 1. Stream Captured at 640x480 resolution (for CPU and network efficiency).
