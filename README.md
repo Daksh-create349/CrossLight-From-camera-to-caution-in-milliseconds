@@ -118,7 +118,8 @@ All components communicate via a **WebSocket API** (JSON messages) that streams 
 ### Data Flow Diagram
 ```mermaid
 flowchart TD
-    A[IP Camera] --> B[OpenCV (traffic_camera)] --> C[Frame (1280x720)]
+    A[IP Camera] --> B[OpenCV (traffic_camera)]
+    B --> C[Frame (1280x720)]
     B -->|Every Nth frame| D[YOLO Detector (detector.py)]
     D --> E[Detections]
     B -->|All frames| F[Kalman Tracker (kalman_tracker.py)]
@@ -126,13 +127,16 @@ flowchart TD
     D -->|Every detection| G[TrafficLightReader (traffic_light_reader.py)]
     G --> H[Light State]
     F -->|Every frame| I[RiskAssessor (risk_assessor.py)]
-    I -->|Uses| F & H
+    I -->|Uses| F
+    I -->|Uses| H
     I --> J[Risk events]
     J --> K[ProjectorSimulator (projector_simulator.py)]
     K --> L[Visual Barriers]
     I --> M[Telemetry JSON]
-    M --> N[WebSocket Server] --> O[React Frontend (ControlRoom, etc.)]
+    M --> N[WebSocket Server]
+    N --> O[React Frontend (ControlRoom, etc.)]
 ```
+
 
 ---
 
