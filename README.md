@@ -116,20 +116,22 @@ All components communicate via a **WebSocket API** (JSON messages) that streams 
 - **`vite.config.js`** – proxies `/ws` to the Python backend during development, enabling hot‑module replacement.
 
 ### Data Flow Diagram
-```
-IP Camera --> OpenCV (traffic_camera) --> Frame (1280x720)
-    |
-    |--[Every Nth frame]--> YOLO Detector (detector.py) --> Detections
-    |
-    |--[All frames]--> Kalman Tracker (kalman_tracker.py) <-- Detections (when available)
-    |
-    |--[Every detection]--> TrafficLightReader (traffic_light_reader.py) --> Light State
-    |
-    |--[Every frame]--> RiskAssessor (risk_assessor.py) <-- Tracks + Light State
-    |
-    |--[Risk events]--> ProjectorSimulator (projector_simulator.py) --> Visual Barriers
-    |
-    |--[Telemetry JSON]--> WebSocket Server --> React Frontend (ControlRoom, etc.)
+```mermaid
+flowchart TD
+    A[IP Camera] --> B[OpenCV (traffic_camera)] --> C[Frame (1280x720)]
+    B -->|Every Nth frame| D[YOLO Detector (detector.py)]
+    D --> E[Detections]
+    B -->|All frames| F[Kalman Tracker (kalman_tracker.py)]
+    F -->|Uses| E
+    D -->|Every detection| G[TrafficLightReader (traffic_light_reader.py)]
+    G --> H[Light State]
+    F -->|Every frame| I[RiskAssessor (risk_assessor.py)]
+    I -->|Uses| F & H
+    I --> J[Risk events]
+    J --> K[ProjectorSimulator (projector_simulator.py)]
+    K --> L[Visual Barriers]
+    I --> M[Telemetry JSON]
+    M --> N[WebSocket Server] --> O[React Frontend (ControlRoom, etc.)]
 ```
 
 ---
