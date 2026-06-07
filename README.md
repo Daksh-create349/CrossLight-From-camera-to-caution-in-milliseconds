@@ -116,26 +116,28 @@ All components communicate via a **WebSocket API** (JSON messages) that streams 
 - **`vite.config.js`** – proxies `/ws` to the Python backend during development, enabling hot‑module replacement.
 
 ### Data Flow Diagram
+### Data Flow Diagram
 ```mermaid
 flowchart TD
-    A[IP Camera] --> B[OpenCV (traffic_camera)]
-    B --> C[Frame (1280x720)]
-    B -->|Every Nth frame| D[YOLO Detector (detector.py)]
+    A[IP Camera] --> B["OpenCV (traffic_camera)"]
+    B --> C["Frame (1280x720)"]
+    B -->|Every Nth frame| D["YOLO Detector (detector.py)"]
     D --> E[Detections]
-    B -->|All frames| F[Kalman Tracker (kalman_tracker.py)]
+    B -->|All frames| F["Kalman Tracker (kalman_tracker.py)"]
     F -->|Uses| E
-    D -->|Every detection| G[TrafficLightReader (traffic_light_reader.py)]
-    G --> H[Light State]
-    F -->|Every frame| I[RiskAssessor (risk_assessor.py)]
+    D -->|Every detection| G["TrafficLightReader (traffic_light_reader.py)"]
+    G --> H["Light State"]
+    F -->|Every frame| I["RiskAssessor (risk_assessor.py)"]
     I -->|Uses| F
     I -->|Uses| H
-    I --> J[Risk events]
-    J --> K[ProjectorSimulator (projector_simulator.py)]
-    K --> L[Visual Barriers]
-    I --> M[Telemetry JSON]
-    M --> N[WebSocket Server]
-    N --> O[React Frontend (ControlRoom, etc.)]
+    I --> J["Risk events"]
+    J --> K["ProjectorSimulator (projector_simulator.py)"]
+    K --> L["Visual Barriers"]
+    I --> M["Telemetry JSON"]
+    M --> N["WebSocket Server"]
+    N --> O["React Frontend (ControlRoom, etc.)"]
 ```
+
 
 
 ---
